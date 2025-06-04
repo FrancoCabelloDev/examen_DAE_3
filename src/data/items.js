@@ -1,76 +1,144 @@
-// src/data/items.js
-
-export const movies = [
+// Mock data para Canva - Plantillas y categorías
+export const templates = [
   {
     id: 1,
-    title: "The Shawshank Redemption",
-    synopsis:
-      "Un banquero injustamente encarcelado forja una amistad única mientras sobrevive a las duras condiciones de prisión y fragua un plan de esperanza.",
-    poster:
-      "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
-    upcoming: false
+    name: "Modern Business Card",
+    category: "Business Cards",
+    image: "https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?w=400&h=300&fit=crop",
+    price: "Free",
+    shortDescription: "Professional business card template with clean design"
   },
   {
     id: 2,
-    title: "The Godfather",
-    synopsis:
-      "La saga de la familia Corleone: el ascenso de Michael Corleone al poder y la compleja lealtad dentro de un imperio criminal.",
-    poster:
-      "https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
-    upcoming: false
+    name: "Instagram Story Template",
+    category: "Social Media",
+    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
+    price: "Pro",
+    shortDescription: "Vibrant Instagram story template for engagement"
   },
   {
     id: 3,
-    title: "The Dark Knight",
-    synopsis:
-      "Batman enfrenta al Joker, un criminal anárquico, mientras Gotham City se sumerge en el caos y la dualidad del héroe se pone a prueba.",
-    poster:
-      "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-    upcoming: false
+    name: "Wedding Invitation",
+    category: "Invitations",
+    image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=400&h=300&fit=crop",
+    price: "Free",
+    shortDescription: "Elegant wedding invitation with floral elements"
   },
   {
     id: 4,
-    title: "Inception",
-    synopsis:
-      "Un ladrón experto en infiltrarse en sueños recibe el desafío de implantar una idea en la mente de un objetivo, atravesando múltiples niveles de realidad.",
-    poster:
-      "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-    upcoming: false
+    name: "Company Logo Design",
+    category: "Logos",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop",
+    price: "Pro",
+    shortDescription: "Modern logo template for startups and businesses"
   },
   {
     id: 5,
-    title: "Avatar: El sentido del agua",
-    synopsis:
-      "Secuela de Avatar en un mundo acuático, con Jake Sully y Neytiri explorando nuevos territorios marinos.",
-    poster:
-      "https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
-    upcoming: true
+    name: "YouTube Thumbnail",
+    category: "Social Media",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop",
+    price: "Free",
+    shortDescription: "Eye-catching YouTube thumbnail template"
   },
   {
     id: 6,
-    title: "Black Panther: Wakanda Forever",
-    synopsis:
-      "El legado de T'Challa continúa en Wakanda tras su muerte inesperada.",
-    poster:
-      "https://image.tmdb.org/t/p/w500/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
-    upcoming: true
+    name: "Annual Report Cover",
+    category: "Business",
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400&h=300&fit=crop",
+    price: "Pro",
+    shortDescription: "Professional annual report cover design"
   },
   {
     id: 7,
-    title: "Spider-Man: No Way Home",
-    synopsis:
-      "Peter Parker lidia con las consecuencias de que el mundo conozca su identidad secreta.",
-    poster:
-      "https://image.tmdb.org/t/p/w500/fVzXp3NwovUlLe7fvoRynCmBPNc.jpg",
-    upcoming: false
+    name: "Restaurant Menu",
+    category: "Menus",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+    price: "Free",
+    shortDescription: "Stylish restaurant menu template"
   },
   {
     id: 8,
-    title: "The Matrix Resurrections",
-    synopsis:
-      "Neo vive una existencia pacífica hasta que Morfeo reaparece para luchar contra el sistema una vez más.",
-    poster:
-      "https://image.tmdb.org/t/p/w500/8c4a8kE7PizaGQQnditMmI1xbRp.jpg",
-    upcoming: true
+    name: "Event Poster",
+    category: "Posters",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop",
+    price: "Pro",
+    shortDescription: "Dynamic event poster template"
+  },
+  {
+    id: 9,
+    name: "Facebook Cover Photo",
+    category: "Social Media",
+    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
+    price: "Free",
+    shortDescription: "Professional Facebook cover photo template"
   }
-]
+];
+
+export const categories = [
+  {
+    id: 1,
+    name: "Social Media",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=300&h=200&fit=crop",
+    templatesCount: 500,
+    description: "Instagram posts, stories, Facebook covers and more"
+  },
+  {
+    id: 2,
+    name: "Business Cards",
+    image: "https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?w=300&h=200&fit=crop",
+    templatesCount: 250,
+    description: "Professional business card designs"
+  },
+  {
+    id: 3,
+    name: "Logos",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=300&h=200&fit=crop",
+    templatesCount: 180,
+    description: "Brand logos and company identities"
+  },
+  {
+    id: 4,
+    name: "Invitations",
+    image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=300&h=200&fit=crop",
+    templatesCount: 320,
+    description: "Wedding, party and event invitations"
+  },
+  {
+    id: 5,
+    name: "Posters",
+    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=200&fit=crop",
+    templatesCount: 400,
+    description: "Event posters and promotional materials"
+  },
+  {
+    id: 6,
+    name: "Business",
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=300&h=200&fit=crop",
+    templatesCount: 150,
+    description: "Reports, presentations and corporate designs"
+  }
+];
+
+export const heroSlides = [
+  {
+    id: 1,
+    title: "Create Amazing Designs",
+    subtitle: "Professional templates for every need",
+    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=400&fit=crop",
+    ctaText: "Start Designing"
+  },
+  {
+    id: 2,
+    title: "Social Media Templates",
+    subtitle: "Stand out on every platform",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=400&fit=crop",
+    ctaText: "Browse Templates"
+  },
+  {
+    id: 3,
+    title: "Business Solutions",
+    subtitle: "Professional designs for your business",
+    image: "https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?w=800&h=400&fit=crop",
+    ctaText: "Get Started"
+  }
+];

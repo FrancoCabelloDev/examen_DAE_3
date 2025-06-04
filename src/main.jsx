@@ -1,16 +1,14 @@
-// src/main.jsx
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App.jsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import './css/index.css';
 
-import './css/index.css'                     // Tu CSS con GA Fonts y overrides
-import 'react-toastify/dist/ReactToastify.css' // Estilos para Toastify
+// Importar fuentes
+import '@fontsource-variable/open-sans';
+import '@fontsource-variable/roboto';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
-)
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

@@ -1,100 +1,257 @@
-// src/components/ContactForm.jsx
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
+import { useState } from 'react';
+import { Send, User, Mail, MessageCircle } from 'lucide-react';
+import { notifyFormSuccess } from '../utils/notifyFavorite.js';
 
 export default function ContactForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm()
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = (data) => {
-    toast.success('Mensaje enviado correctamente')
-    reset()
-  }
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'El nombre es requerido';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'El correo electrónico es requerido';
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Por favor ingresa un correo válido';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'El mensaje es requerido';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Limpiar error cuando el usuario empiece a escribir
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Simular envío del formulario
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Mostrar notificación de éxito
+      notifyFormSuccess();
+      
+      // Limpiar formulario
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      });
+      setErrors({});
+    } catch (error) {
+      console.error('Error al enviar formulario:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h2 className="text-3xl font-semibold text-cineDark mb-6">
-        Contáctanos
-      </h2>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md"
-      >
-        {/* Nombre */}
-        <div className="mb-4">
-          <label htmlFor="name" className="block font-medium text-gray-700 mb-1">
-            Nombre<span className="text-red-500">*</span>
-          </label>
-          <input
-            id="name"
-            type="text"
-            {...register('name', { required: 'El nombre es obligatorio' })}
-            className={`w-full border rounded-md px-4 py-2 focus:outline-none ${
-              errors.name ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-          )}
+    <div className="min-vh-100 bg-light py-5">
+      <div className="container">
+        {/* Header */}
+        <div className="text-center mb-5">
+          <h1 className="display-4 fw-bold text-dark mb-3">
+            Contáctanos
+          </h1>
+          <p className="fs-5 text-muted">
+            ¿Tienes una pregunta o necesitas ayuda? Nos encantaría escucharte
+          </p>
         </div>
 
-        {/* Correo */}
-        <div className="mb-4">
-          <label htmlFor="email" className="block font-medium text-gray-700 mb-1">
-            Correo electrónico<span className="text-red-500">*</span>
-          </label>
-          <input
-            id="email"
-            type="email"
-            {...register('email', {
-              required: 'El correo es obligatorio',
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: 'Formato de correo inválido'
-              }
-            })}
-            className={`w-full border rounded-md px-4 py-2 focus:outline-none ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-          )}
-        </div>
+        <div className="row g-5">
+          {/* Contact Info */}
+          <div className="col-lg-6">
+            <div className="gradient-bg rounded-4 p-5 text-white h-100">
+              <h2 className="h3 fw-bold mb-4">Ponte en contacto</h2>
+              <div className="mb-4">
+                <div className="d-flex align-items-center mb-4">
+                  <div className="bg-white bg-opacity-20 rounded p-3 me-3">
+                    <Mail size={24} />
+                  </div>
+                  <div>
+                    <h5 className="fw-semibold mb-1">Email</h5>
+                    <p className="mb-0 opacity-75">hola@canva.com</p>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center">
+                  <div className="bg-white bg-opacity-20 rounded p-3 me-3">
+                    <MessageCircle size={24} />
+                  </div>
+                  <div>
+                    <h5 className="fw-semibold mb-1">Chat en vivo</h5>
+                    <p className="mb-0 opacity-75">Disponible 24/7</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-5">
+                <h5 className="fw-semibold mb-3">¿Por qué elegirnos?</h5>
+                <ul className="list-unstyled opacity-75">
+                  <li className="mb-2">• Miles de plantillas profesionales</li>
+                  <li className="mb-2">• Herramientas de diseño intuitivas</li>
+                  <li className="mb-2">• Soporte al cliente excepcional</li>
+                  <li className="mb-2">• Actualizaciones constantes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-        {/* Mensaje */}
-        <div className="mb-4">
-          <label htmlFor="message" className="block font-medium text-gray-700 mb-1">
-            Mensaje<span className="text-red-500">*</span>
-          </label>
-          <textarea
-            id="message"
-            rows="4"
-            {...register('message', {
-              required: 'El mensaje es obligatorio'
-            })}
-            className={`w-full border rounded-md px-4 py-2 focus:outline-none ${
-              errors.message ? 'border-red-500' : 'border-gray-300'
-            }`}
-          ></textarea>
-          {errors.message && (
-            <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
-          )}
-        </div>
+          {/* Contact Form */}
+          <div className="col-lg-6">
+            <div className="bg-white rounded-4 shadow-sm p-5 h-100">
+              <form onSubmit={handleSubmit}>
+                {/* Name Field */}
+                <div className="mb-4">
+                  <label htmlFor="name" className="form-label fw-medium">
+                    Nombre completo *
+                  </label>
+                  <div className="input-group">
+                    <span className="input-group-text bg-light border-end-0">
+                      <User className="text-muted" size={20} />
+                    </span>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className={`form-control border-start-0 ${
+                        errors.name ? 'is-invalid' : ''
+                      }`}
+                      placeholder="Tu nombre completo"
+                    />
+                  </div>
+                  {errors.name && (
+                    <div className="invalid-feedback d-block">
+                      {errors.name}
+                    </div>
+                  )}
+                </div>
 
-        {/* Botón Enviar */}
-        <button
-          type="submit"
-          className="bg-cineYellow text-cineDark font-semibold px-6 py-3 rounded-md hover:bg-yellow-500 transition-colors"
-        >
-          Enviar
-        </button>
-      </form>
+                {/* Email Field */}
+                <div className="mb-4">
+                  <label htmlFor="email" className="form-label fw-medium">
+                    Correo electrónico *
+                  </label>
+                  <div className="input-group">
+                    <span className="input-group-text bg-light border-end-0">
+                      <Mail className="text-muted" size={20} />
+                    </span>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={`form-control border-start-0 ${
+                        errors.email ? 'is-invalid' : ''
+                      }`}
+                      placeholder="tu@email.com"
+                    />
+                  </div>
+                  {errors.email && (
+                    <div className="invalid-feedback d-block">
+                      {errors.email}
+                    </div>
+                  )}
+                </div>
+
+                {/* Message Field */}
+                <div className="mb-4">
+                  <label htmlFor="message" className="form-label fw-medium">
+                    Mensaje *
+                  </label>
+                  <div className="input-group">
+                    <span className="input-group-text bg-light border-end-0 align-items-start pt-3">
+                      <MessageCircle className="text-muted" size={20} />
+                    </span>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={5}
+                      className={`form-control border-start-0 resize-none ${
+                        errors.message ? 'is-invalid' : ''
+                      }`}
+                      placeholder="Cuéntanos cómo podemos ayudarte..."
+                      style={{ resize: 'none' }}
+                    />
+                  </div>
+                  {errors.message && (
+                    <div className="invalid-feedback d-block">
+                      {errors.message}
+                    </div>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`btn w-100 d-flex align-items-center justify-content-center gap-2 ${
+                    isSubmitting
+                      ? 'btn-secondary'
+                      : 'btn-canva-primary'
+                  }`}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="spinner-border spinner-border-sm text-light" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      Enviar Mensaje
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }

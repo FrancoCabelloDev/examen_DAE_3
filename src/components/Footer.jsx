@@ -1,65 +1,65 @@
-// src/components/Footer.jsx
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-
 export default function Footer() {
   return (
-    <footer className="bg-cineDark text-gray-300 py-8">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Columna 1: Logo y descripción */}
-        <div>
-          <h3 className="text-2xl font-bold text-cineYellow mb-2">Cinéplanet</h3>
-          <p className="text-sm">
-            La mejor experiencia de cine en tu ciudad. Estrenos, favoritos y
-            toda la cartelera al alcance de un clic.
-          </p>
+    <footer className="bg-dark text-white py-5">
+      <div className="container">
+        <div className="row g-4">
+          <div className="col-lg-6">
+            <div className="d-flex align-items-center mb-3">
+              <div className="gradient-bg rounded d-flex align-items-center justify-content-center me-2" 
+                   style={{width: '32px', height: '32px'}}>
+                <span className="text-white fw-bold fs-5">C</span>
+              </div>
+              <span className="fs-4 fw-bold text-white">Canva</span>
+            </div>
+            <p className="text-light opacity-75 mb-4">
+              Herramientas de diseño intuitivas para crear contenido visual increíble. 
+              Desde redes sociales hasta presentaciones profesionales.
+            </p>
+          </div>
+          
+          <div className="col-md-6 col-lg-3">
+            <h5 className="fw-semibold mb-3">Productos</h5>
+            <ul className="list-unstyled">
+              <li className="mb-2">
+                <a href="#" className="text-light opacity-75 text-decoration-none">Plantillas</a>
+              </li>
+              <li className="mb-2">
+                <a href="#" className="text-light opacity-75 text-decoration-none">Editor</a>
+              </li>
+              <li className="mb-2">
+                <a href="#" className="text-light opacity-75 text-decoration-none">Canva Pro</a>
+              </li>
+              <li className="mb-2">
+                <a href="#" className="text-light opacity-75 text-decoration-none">Equipos</a>
+              </li>
+            </ul>
+          </div>
+          
+          <div className="col-md-6 col-lg-3">
+            <h5 className="fw-semibold mb-3">Soporte</h5>
+            <ul className="list-unstyled">
+              <li className="mb-2">
+                <a href="#" className="text-light opacity-75 text-decoration-none">Centro de ayuda</a>
+              </li>
+              <li className="mb-2">
+                <a href="#" className="text-light opacity-75 text-decoration-none">Contacto</a>
+              </li>
+              <li className="mb-2">
+                <a href="#" className="text-light opacity-75 text-decoration-none">Comunidad</a>
+              </li>
+              <li className="mb-2">
+                <a href="#" className="text-light opacity-75 text-decoration-none">Blog</a>
+              </li>
+            </ul>
+          </div>
         </div>
-
-        {/* Columna 2: Enlaces de navegación */}
-        <div>
-          <h4 className="text-lg font-semibold text-white mb-2">Menú</h4>
-          <ul className="space-y-1">
-            <li>
-              <NavLink
-                to="/"
-                className="hover:text-white transition-colors"
-              >
-                Inicio
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/items"
-                className="hover:text-white transition-colors"
-              >
-                Cartelera
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/contact"
-                className="hover:text-white transition-colors"
-              >
-                Contacto
-              </NavLink>
-            </li>
-          </ul>
+        
+        <hr className="my-4 opacity-25" />
+        
+        <div className="text-center text-light opacity-75">
+          <p className="mb-0">&copy; 2024 Canva Mini SPA. Proyecto educativo de React.</p>
         </div>
-
-        {/* Columna 3: Información de contacto */}
-        <div>
-          <h4 className="text-lg font-semibold text-white mb-2">Contáctanos</h4>
-          <ul className="text-sm space-y-1">
-            <li>Soporte: soporte@cineplanet.com</li>
-            <li>Teléfono: +51 123 456 789</li>
-            <li>Dirección: Av. del Cine 123, Lima, Perú</li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="border-t border-gray-700 mt-8 pt-4 text-center text-xs">
-        © {new Date().getFullYear()} Cinéplanet. Todos los derechos reservados.
       </div>
     </footer>
-  )
+  );
 }

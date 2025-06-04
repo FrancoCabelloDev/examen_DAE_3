@@ -1,106 +1,107 @@
-// src/components/ItemList.jsx
-import React, { useState, useEffect } from 'react'
-import ItemSearch from './ItemSearch.jsx'
-import ItemCard from './ItemCard.jsx'
-import LoadingSkeleton from './LoadingSkeleton.jsx'
-import { movies } from '../data/items.js'
+import { useState, useEffect } from 'react';
+import { templates } from '../data/items.js';
+import ItemCard from './ItemCard.jsx';
+import ItemSearch from './ItemSearch.jsx';
+import LoadingSkeleton from './LoadingSkeleton.jsx';
 
 export default function ItemList() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [items, setItems] = useState([])
-  const [filteredItems, setFilteredItems] = useState([])
+  const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Nuevo estado para mostrar solo "upcoming" o toda la cartelera
-  const [showUpcoming, setShowUpcoming] = useState(false)
-
+  // Simular carga de datos (para demostrar skeleton)
   useEffect(() => {
-    // Simulamos un fetch de 1.5s
-    setTimeout(() => {
-      setItems(movies)
-      // Por defecto, filtramos según showUpcoming (inicial false)
-      setFilteredItems(movies.filter((m) => !showUpcoming || m.upcoming))
-      setIsLoading(false)
-    }, 1500)
-  }, [])
+    const timer = setTimeout(() => {
+      setItems(templates);
+      setFilteredItems(templates);
+      setIsLoading(false);
+    }, 1500);
 
-  // Cuando cambie showUpcoming, ajustamos filteredItems
-  useEffect(() => {
-    const baseList = [...items]
-    // Si showUpcoming=true, filtramos upcoming===true. Si no, mostramos todos.
-    const updated = baseList.filter((m) => (showUpcoming ? m.upcoming : true))
-    setFilteredItems(updated)
-  }, [showUpcoming, items])
+    return () => clearTimeout(timer);
+  }, []);
 
+  // Filtrar items basado en la búsqueda
   const handleSearch = (searchTerm) => {
-    const baseList = items.filter((movie) => (showUpcoming ? movie.upcoming : true))
-
-    if (!searchTerm) {
-      setFilteredItems(baseList)
+    if (!searchTerm.trim()) {
+      setFilteredItems(items);
     } else {
-      const filtrado = baseList.filter((movie) =>
-        movie.title.toLowerCase().includes(searchTerm)
-      )
-      setFilteredItems(filtrado)
+      const filtered = items.filter(item => 
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.shortDescription.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredItems(filtered);
     }
-  }
+  };
 
   return (
-    <section className="py-12 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-cineDark mb-6">
-          {showUpcoming ? 'Próximos Estrenos' : 'Cartelera Completa'}
-        </h2>
-
-        {/* Nuevo toggle para alternar entre Cartelera y Próximos estrenos */}
-        <div className="mb-6 flex space-x-4">
-          <button
-            onClick={() => setShowUpcoming(false)}
-            className={`px-4 py-2 rounded-md font-medium transition-colors ${
-              !showUpcoming
-                ? 'bg-cineYellow text-cineDark'
-                : 'bg-white text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Cartelera
-          </button>
-          <button
-            onClick={() => setShowUpcoming(true)}
-            className={`px-4 py-2 rounded-md font-medium transition-colors ${
-              showUpcoming
-                ? 'bg-cineYellow text-cineDark'
-                : 'bg-white text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Próximos Estrenos
-          </button>
+    <div className="min-vh-100 bg-light py-4">
+      <div className="container">
+        {/* Header */}
+        <div className="text-center mb-5">
+          <h1 className="display-4 fw-bold text-dark mb-3">
+            Plantillas de Diseño
+          </h1>
+          <p className="fs-5 text-muted">
+            Descubre miles de plantillas profesionales para todos tus proyectos creativos
+          </p>
         </div>
 
-        <ItemSearch onSearch={handleSearch} />
+        {/* Search */}
+        <ItemSearch 
+          onSearch={handleSearch}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
 
+        {/* Results Counter */}
+        {!isLoading && (
+          <div className="container mb-4">
+            <p className="text-muted">
+              {searchValue ? (
+                <>Encontrados <span className="fw-semibold">{filteredItems.length}</span> resultados para "<span className="fw-semibold text-canva-purple">{searchValue}</span>"</>
+              ) : (
+                <>Mostrando <span className="fw-semibold">{filteredItems.length}</span> plantillas</>
+              )}
+            </p>
+          </div>
+        )}
+
+        {/* Content */}
         {isLoading ? (
           <LoadingSkeleton />
         ) : (
           <>
             {filteredItems.length > 0 ? (
-              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {filteredItems.map((movie) => (
-                  <ItemCard
-                    key={movie.id}
-                    id={movie.id}
-                    title={movie.title}
-                    poster={movie.poster}
-                    synopsis={movie.synopsis}
-                  />
+              <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                {filteredItems.map((item) => (
+                  <ItemCard key={item.id} item={item} />
                 ))}
               </div>
             ) : (
-              <p className="text-center text-gray-500 mt-8">
-                No se encontró ninguna película.
-              </p>
+              <div className="text-center py-5">
+                <div className="display-1 mb-4">🔍</div>
+                <h3 className="h4 fw-semibold text-dark mb-3">
+                  No se encontraron resultados
+                </h3>
+                <p className="text-muted mb-4">
+                  Intenta con otros términos de búsqueda o explora nuestras categorías
+                </p>
+                <button 
+                  onClick={() => {
+                    setSearchValue('');
+                    handleSearch('');
+                  }}
+                  className="btn btn-canva-primary"
+                >
+                  Ver todas las plantillas
+                </button>
+              </div>
             )}
           </>
         )}
       </div>
-    </section>
-  )
+    </div>
+  );
 }

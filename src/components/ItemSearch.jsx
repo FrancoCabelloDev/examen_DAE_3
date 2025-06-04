@@ -1,39 +1,68 @@
-// src/components/ItemSearch.jsx
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import { Search, X } from 'lucide-react';
+import { useDebounce } from '../hooks/useDebounce.js';
 
-// Hook useDebounce
-function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] = useState(value)
+export default function ItemSearch({ onSearch, searchValue, setSearchValue }) {
+  const [inputValue, setInputValue] = useState(searchValue || '');
+  const debouncedSearchTerm = useDebounce(inputValue, 300);
 
+  // Effect para ejecutar la búsqueda cuando cambie el valor con debounce
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
+    onSearch(debouncedSearchTerm);
+  }, [debouncedSearchTerm, onSearch]);
 
-    return () => clearTimeout(handler)
-  }, [value, delay])
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    setSearchValue(value);
+  };
 
-  return debouncedValue
-}
-
-export default function ItemSearch({ onSearch }) {
-  const [input, setInput] = useState('')
-  const debouncedInput = useDebounce(input, 300)
-
-  // Cuando cambia debouncedInput, notificamos al padre
-  useEffect(() => {
-    onSearch(debouncedInput.trim().toLowerCase())
-  }, [debouncedInput, onSearch])
+  const clearSearch = () => {
+    setInputValue('');
+    setSearchValue('');
+    onSearch('');
+  };
 
   return (
-    <div className="mb-6">
-      <input
-        type="text"
-        placeholder="Buscar película..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cineYellow"
-      />
+    <div className="container mb-4">
+      <div className="row justify-content-center">
+        <div className="col-lg-8">
+          <div className="position-relative">
+            <div className="position-absolute top-50 start-0 translate-middle-y ms-3">
+              <Search className="text-muted" size={20} />
+            </div>
+            
+            <input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Buscar plantillas por nombre o categoría..."
+              className="form-control form-control-lg ps-5 pe-5 border-2 shadow-sm"
+              style={{ 
+                borderColor: '#dee2e6',
+                borderRadius: '12px',
+                fontSize: '1.1rem'
+              }}
+            />
+            
+            {inputValue && (
+              <button
+                onClick={clearSearch}
+                className="btn position-absolute top-50 end-0 translate-middle-y me-3 p-1"
+                style={{ border: 'none', background: 'none' }}
+              >
+                <X size={20} className="text-muted" />
+              </button>
+            )}
+          </div>
+          
+          {inputValue && (
+            <div className="mt-2 text-muted small">
+              Buscando: "<span className="fw-semibold text-canva-purple">{inputValue}</span>"
+            </div>
+          )}
+        </div>
+      </div>
     </div>
-  )
+  );
 }
