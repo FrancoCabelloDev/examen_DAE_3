@@ -1,0 +1,14 @@
+/* src/css/index.css */
+
+/* 1) Tipografías vía Google Fonts (opcional) */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+/* 2) Estilos globales / overrides */
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* 3) Aquí puedes agregar más reglas si lo deseas */
