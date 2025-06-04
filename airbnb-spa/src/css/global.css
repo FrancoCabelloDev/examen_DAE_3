@@ -1,0 +1,8 @@
+/* Oculta scrollbar en Chrome, Edge y Safari */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+/* Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
