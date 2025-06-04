@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yape Wallet – Mini SPA</title>
+
+    <!-- Tailwind CSS via CDN (en modo desarrollo) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Opcional: aquí puedes extender la configuración de Tailwind si quieres
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              yapePurple: "#7e3af2",
+              yapeYellow: "#facc15",
+              yapeGray: "#1f2937"
+            }
+          }
+        }
+      };
+    </script>
+
+    <!-- Google Fonts: Open Sans y Roboto -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Iconos de react-icons (si lo usas) -->
+    <!-- ninguna importación extra aquí, react-icons se instala por npm -->
+
+    <!-- Favicon (si quieres poner) -->
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body class="bg-white text-gray-800 font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
