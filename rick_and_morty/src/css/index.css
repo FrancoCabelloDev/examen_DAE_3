@@ -1,0 +1,160 @@
+/* src/css/index.css */
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Contenedor general centrado */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Header */
+.header {
+  background-color: #282c34;
+  padding: 1rem 0;
+  color: #fff;
+}
+
+/* Navegación en el Header */
+.header nav a {
+  color: #61dafb;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.header nav h2 {
+  margin: 0;
+  color: #61dafb;
+}
+
+/* Hero de Homepage */
+.hero {
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.hero h1 {
+  margin-bottom: 1rem;
+}
+
+.hero a {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #61dafb;
+  color: #282c34;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Sección informativa de Homepage */
+.info {
+  margin: 3rem 0;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+}
+
+/* Título de cada página interna */
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* SearchBar */
+.search-bar {
+  margin: 1rem 0 2rem;
+  text-align: center;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Grid de cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Card individual */
+.card {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 0.75rem;
+}
+
+.card-content h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.card-content p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Skeleton container (mismo grid que .grid) */
+.skeleton-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Footer */
+footer {
+  background-color: #282c34;
+  color: #aaa;
+  padding: 1rem 0;
+  margin-top: 2rem;
+}
+
+footer p {
+  margin: 0.25rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
