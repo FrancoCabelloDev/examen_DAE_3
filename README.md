@@ -1,88 +1,196 @@
-Cinéplanet – Mini SPA de Cartelera
-¡Hola! Bienvenido a Cinéplanet, una pequeña SPA en React 19 con Vite que simula la cartelera de un cine. Aquí encontrarás pósters, títulos y sinopsis de películas, podrás marcar tus favoritas y filtrar los “Próximos estrenos”. Además, incluye un formulario de contacto con validación y notificaciones.
+# 🎨 Canva Mini SPA
 
-Tecnologías usadas
+Una aplicación web de una sola página (SPA) que replica las funcionalidades principales de Canva, desarrollada con React 19 y Bootstrap 5.
 
-React 19 (solo componentes funcionales y hooks)
+## 📋 Características
 
-Vite (bundler ultrarrápido)
+- **🏠 Página de Inicio** con hero banner interactivo y carrusel automático
+- **🔍 Sistema de Búsqueda** con debounce para filtrar plantillas en tiempo real
+- **❤️ Sistema de Favoritos** con persistencia en localStorage
+- **📱 Diseño Responsivo** compatible con dispositivos móviles y desktop
+- **🎯 Navegación SPA** con React Router DOM
+- **🔔 Notificaciones** con react-toastify para feedback del usuario
+- **⚡ Carga Skeleton** para mejor UX durante la carga de contenido
 
-React Router v6 para las rutas /, /items y /contact
+## 🛠️ Tecnologías Utilizadas
 
-Tailwind CSS (vía CDN en index.html)
+- **React 19.1.0** - Framework principal
+- **React Router DOM** - Navegación entre páginas
+- **Bootstrap 5.3.6** - Framework CSS y componentes UI
+- **Bootstrap Icons** - Iconografía
+- **React Toastify** - Sistema de notificaciones
+- **React Loading Skeleton** - Animaciones de carga
+- **Lucide React** - Iconos adicionales
+- **Vite** - Bundler y servidor de desarrollo
+- **Fontsource** - Tipografías (Open Sans y Roboto)
 
-React Toastify para los toasts de favoritos y formulario
+## 🚀 Instalación y Configuración
 
-React Loading Skeleton para mostrar placeholders mientras cargan los datos
+### Prerequisitos
 
-React Hook Form en el formulario de contacto
+- Node.js (versión 16 o superior)
+- npm o yarn
 
-Google Fonts (Open Sans y Roboto, cargadas por CDN)
+### Pasos de Instalación
 
-Instalación y arranque
+1. **Clonar el repositorio**
+```bash
+git clone <url-del-repositorio>
+cd canva-mini-spa
+```
 
-Clona este repositorio y ve a la carpeta:
-git clone https://github.com/tu_usuario/mis-proyectos.git
-cd mis-proyectos
-git checkout cineplanet
+2. **Instalar dependencias**
+```bash
+npm install --legacy-peer-deps
+```
 
-Instala las dependencias:
-npm install
+> **Nota:** El flag `--legacy-peer-deps` es necesario debido a incompatibilidades menores entre React 19 y algunas librerías que aún no han actualizado completamente su soporte.
 
-Levanta el servidor de desarrollo:
+3. **Ejecutar el proyecto en modo desarrollo**
+```bash
 npm run dev
+```
 
-Abre tu navegador en http://localhost:5173
+4. **Abrir en el navegador**
+```
+http://localhost:5173
+```
 
-Cómo moverse por la aplicación
+## 📁 Estructura del Proyecto
 
-En la página de Inicio (/) verás el header con el logo “Cinéplanet” y los enlaces a “Inicio”, “Cartelera” y “Contacto”. Debajo hay un hero a pantalla completa con imagen, título y dos botones que llevan a Cartelera y Contacto. Más abajo, la sección “Cartelera Destacada” muestra seis tarjetas con póster, título, sinopsis breve y un botón “Ver más”.
+```
+src/
+├── components/          # Componentes React reutilizables
+│   ├── Header.jsx      # Navegación principal
+│   ├── HeroBanner.jsx  # Banner principal con carrusel
+│   ├── CardList.jsx    # Lista de categorías de plantillas
+│   ├── ItemCard.jsx    # Tarjeta individual de plantilla
+│   ├── ItemSearch.jsx  # Componente de búsqueda
+│   └── ContactForm.jsx # Formulario de contacto
+├── pages/              # Páginas principales
+│   ├── Home.jsx        # Página de inicio
+│   ├── Items.jsx       # Página de plantillas
+│   └── Contact.jsx     # Página de contacto
+├── data/               # Datos estáticos
+│   └── items.js        # Categorías y plantillas
+├── hooks/              # Custom hooks
+│   └── useDebounce.js  # Hook para debounce en búsqueda
+├── utils/              # Utilidades
+│   └── notifyFavorite.js # Sistema de notificaciones
+├── css/                # Estilos
+│   └── index.css       # Estilos principales
+├── App.jsx             # Componente principal
+└── main.jsx            # Punto de entrada
+```
 
-En Cartelera (/items) primero se muestran unos segundos de skeleton (placeholders) para simular la carga. Después aparecen ocho películas con sus pósters, títulos y sinopsis. Arriba hay un toggle que alterna entre “Cartelera Completa” (todas las películas) y “Próximos Estrenos” (solo las que tienen upcoming: true en el arreglo). También hay un campo de búsqueda que filtra en tiempo real con un retraso de 300 ms (debounce). Cada tarjeta incluye una estrella que permite marcar o desmarcar favoritos: al hacer clic, el ID de la película se guarda en localStorage bajo la clave fav-items y aparece un toast: “★ "<título>" agregado a Favoritos” o “✕ "<título>" removido de Favoritos”.
+## 🎯 Funcionalidades Implementadas
 
-En Contacto (/contact) encontrarás un formulario con tres campos obligatorios: Nombre, Correo electrónico (valida formato) y Mensaje. Si dejas algún campo vacío o el correo no es válido, aparece un mensaje de error en rojo justo debajo. Al enviar con todos los datos correctos, sale un toast que dice “Mensaje enviado correctamente” y el formulario se limpia.
+### 1. **Página de Inicio**
+- Hero banner con carrusel automático de 5 slides
+- Lista de categorías de plantillas (Social Media, Business Cards, Logos, etc.)
+- Navegación fluida entre secciones
 
-El Footer aparece abajo en todas las páginas. Está dividido en tres columnas: la primera con el logo y una breve descripción (“La mejor experiencia de cine en tu ciudad…”), la segunda con enlaces rápidos (Inicio, Cartelera, Contacto) y la tercera con datos de contacto (soporte@cineplanet.com, teléfono, dirección en Lima). Al final hay una línea con © año actual y “Todos los derechos reservados”.
+### 2. **Sistema de Plantillas**
+- Catálogo de 8 plantillas organizadas por categorías
+- Filtros por categoría en tiempo real
+- Buscador con debounce (300ms de delay)
+- Etiquetas de "Free" y "Pro" para cada plantilla
 
-Estructura de carpetas
-mi-mini-spa/
-├── index.html (carga Tailwind por CDN y extiende colores)
-├── package.json
-├── vite.config.js
-├── public/
-│ └── favicon.ico
-└── src/
-├── main.jsx (entrada de React, importa CSS y Toastify)
-├── App.jsx (rutas, Header, Footer y ToastContainer)
-├── css/
-│ └── index.css (Google Fonts y overrides globales)
-├── data/
-│ └── items.js (lista de películas con campo upcoming)
-└── components/
-├── Header.jsx
-├── Footer.jsx
-├── HomePage.jsx
-├── HeroBanner.jsx
-├── CardList.jsx
-├── ItemsPage.jsx
-├── ItemList.jsx
-├── ItemSearch.jsx
-├── ItemCard.jsx
-├── LoadingSkeleton.jsx
-├── ContactPage.jsx
-└── ContactForm.jsx
+### 3. **Sistema de Favoritos**
+- Agregar/quitar plantillas de favoritos con un click
+- Persistencia en localStorage del navegador
+- Notificaciones toast al agregar/remover favoritos
+- Indicador visual del estado de favorito
 
-Scripts disponibles
+### 4. **Formulario de Contacto**
+- Validación en tiempo real de campos requeridos
+- Campos: Nombre completo, Email y Mensaje
+- Información de contacto con iconos
+- Notificación de éxito al enviar
 
-npm run dev: inicia el servidor de desarrollo con Vite.
+### 5. **Navegación y UX**
+- Header responsivo con menú hamburguesa en móviles
+- Navegación SPA sin recarga de página
+- Indicador de página activa en el menú
+- Loading skeletons durante la carga
 
-npm run build: genera la versión optimizada para producción en la carpeta dist.
+## 🔧 Scripts Disponibles
 
-npm run preview: sirve la versión de producción localmente para pruebas.
+```bash
+# Desarrollo
+npm run dev          # Inicia servidor de desarrollo
 
-Autor
-Tu Nombre
-tu.email@ejemplo.com
-GitHub: https://github.com/tu_usuario
+# Producción
+npm run build        # Construye la aplicación para producción
+npm run preview      # Previsualiza la build de producción
 
-¡Gracias por revisar Cinéplanet! Espero que te guste y sea útil. 🎬🍿
+# Linting
+npm run lint         # Ejecuta ESLint para revisar código
+```
+
+## 🌐 Páginas y Rutas
+
+- `/` - Página de inicio
+- `/items` - Catálogo de plantillas
+- `/contact` - Formulario de contacto
+
+## 💾 Datos Persistentes
+
+El proyecto utiliza `localStorage` para mantener:
+- **Favoritos**: Lista de IDs de plantillas marcadas como favoritas
+- **Persistencia**: Los favoritos se mantienen entre sesiones del navegador
+
+## 🔍 Características Técnicas
+
+### Custom Hooks
+- **useDebounce**: Implementa delay en búsquedas para optimizar rendimiento
+
+### Optimizaciones
+- Debounce en búsqueda para evitar llamadas excesivas
+- Lazy loading de imágenes
+- Skeleton loading para mejor percepción de velocidad
+
+### Responsive Design
+- Breakpoints de Bootstrap para todas las pantallas
+- Menú hamburguesa en dispositivos móviles
+- Grid adaptativo para las plantillas
+
+## 🚨 Notas Importantes
+
+1. **React 19 Compatibility**: Algunas librerías muestran warnings de compatibilidad, pero funcionan correctamente.
+
+2. **Legacy Peer Deps**: Es necesario usar el flag `--legacy-peer-deps` durante la instalación.
+
+3. **Imágenes**: Se utilizan URLs de Unsplash para las imágenes de ejemplo.
+
+4. **Bootstrap Icons**: Se cargan desde CDN para los iconos del formulario de contacto.
+
+## 🐛 Solución de Problemas
+
+### Error de dependencias
+```bash
+# Si hay problemas con las dependencias
+rm -rf node_modules package-lock.json
+npm install --legacy-peer-deps
+```
+
+### Error de iconos
+Si no se ven los iconos, verificar que esté incluido en `index.html`:
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+```
+
+### Imágenes que no cargan
+Las imágenes de Unsplash pueden fallar ocasionalmente. En `src/data/items.js` se pueden cambiar las URLs por alternativas.
+
+## 📝 Licencia
+
+Este proyecto es con fines educativos y de práctica.
+
+## 👨‍💻 Autor
+
+Desarrollado como proyecto de evaluación para el curso de Desarrollo de Aplicaciones Empresariales (DAE).
+
+---
+
+¡Disfruta explorando el proyecto! 🎨✨
