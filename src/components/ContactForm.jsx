@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { notifyFormSuccess } from '../utils/notifyLike.js';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
