@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 
-export const notifyFavoriteAdded = (itemName) => {
-  toast.success(`✨ "${itemName}" agregado a favoritos`, {
+export const notifyLikeAdded = () => {
+  toast.success('❤️ Shot liked!', {
     position: "top-right",
-    autoClose: 3000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -11,10 +11,10 @@ export const notifyFavoriteAdded = (itemName) => {
   });
 };
 
-export const notifyFavoriteRemoved = (itemName) => {
-  toast.info(`💔 "${itemName}" removido de favoritos`, {
+export const notifyLikeRemoved = () => {
+  toast.info('💔 Like removed', {
     position: "top-right",
-    autoClose: 3000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -23,8 +23,8 @@ export const notifyFavoriteRemoved = (itemName) => {
 };
 
 export const notifyFormSuccess = () => {
-  toast.success(`📧 ¡Mensaje enviado correctamente!`, {
-    position: "top-center",
+  toast.success('🎉 Project request sent! We\'ll be in touch soon.', {
+    position: "top-right",
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,

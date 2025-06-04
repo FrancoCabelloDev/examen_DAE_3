@@ -1,4 +1,4 @@
-import { categories } from '../data/items.js';
+import { categories } from '../data/shots.js';
 import { ArrowRight, Palette } from 'lucide-react';
 
 export default function CardList() {

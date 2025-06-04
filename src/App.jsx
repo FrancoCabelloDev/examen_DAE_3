@@ -1,28 +1,25 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Header from './components/Header.jsx';
-import HomePage from './components/HomePage.jsx';
-import ItemsPage from './components/ItemsPage.jsx';
-import ContactPage from './components/ContactPage.jsx';
-import Footer from './components/Footer.jsx';
+import 'react-toastify/dist/ReactToastify.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomePage from './components/HomePage';
+import ShotsPage from './components/ShotsPage';
+import ContactPage from './components/ContactPage';
 
-export default function App() {
+function App() {
   return (
     <Router>
       <div className="min-vh-100 d-flex flex-column">
         <Header />
-        
         <main className="flex-grow-1">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/items" element={<ItemsPage />} />
+            <Route path="/shots" element={<ShotsPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
-        
         <Footer />
-        
-        {/* Toast Container */}
         <ToastContainer
           position="top-right"
           autoClose={3000}
@@ -39,3 +36,5 @@ export default function App() {
     </Router>
   );
 }
+
+export default App;

@@ -1,257 +1,243 @@
 import { useState } from 'react';
-import { Send, User, Mail, MessageCircle } from 'lucide-react';
-import { notifyFormSuccess } from '../utils/notifyFavorite.js';
+import { notifyFormSuccess } from '../utils/notifyLike.js';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    projectType: '',
+    budget: '',
     message: ''
   });
-  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'El nombre es requerido';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'El correo electrónico es requerido';
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Por favor ingresa un correo válido';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'El mensaje es requerido';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
-
-    // Limpiar error cuando el usuario empiece a escribir
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-
     setIsSubmitting(true);
-
-    // Simular envío del formulario
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Mostrar notificación de éxito
+    
+    setTimeout(() => {
+      setIsSubmitting(false);
       notifyFormSuccess();
-      
-      // Limpiar formulario
       setFormData({
         name: '',
         email: '',
+        projectType: '',
+        budget: '',
         message: ''
       });
-      setErrors({});
-    } catch (error) {
-      console.error('Error al enviar formulario:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    }, 1500);
   };
 
-  return (
-    <div className="min-vh-100 bg-light py-5">
-      <div className="container">
-        {/* Header */}
-        <div className="text-center mb-5">
-          <h1 className="display-4 fw-bold text-dark mb-3">
-            Contáctanos
-          </h1>
-          <p className="fs-5 text-muted">
-            ¿Tienes una pregunta o necesitas ayuda? Nos encantaría escucharte
-          </p>
-        </div>
+  const isFormValid = formData.name && formData.email && formData.message;
 
-        <div className="row g-5">
-          {/* Contact Info */}
-          <div className="col-lg-6">
-            <div className="gradient-bg rounded-4 p-5 text-white h-100">
-              <h2 className="h3 fw-bold mb-4">Ponte en contacto</h2>
+  return (
+    <section className="py-5">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-6 mb-5 mb-lg-0">
+            <div className="pe-lg-4">
+              <h2 className="display-5 fw-bold mb-4">
+                Hire the best <span style={{color: '#ea4c89'}}>creative talent</span>
+              </h2>
+              <p className="lead text-muted mb-4">
+                Work with talented designers and agencies from around the world. 
+                From logos to websites, our community is ready to bring your vision to life.
+              </p>
+              
               <div className="mb-4">
-                <div className="d-flex align-items-center mb-4">
-                  <div className="bg-white bg-opacity-20 rounded p-3 me-3">
-                    <Mail size={24} />
+                <div className="d-flex align-items-center mb-3">
+                  <div className="bg-light rounded p-3 me-3 d-flex align-items-center justify-content-center" style={{width: '48px', height: '48px'}}>
+                    <i className="bi bi-people-fill" style={{fontSize: '1.5rem', color: '#ea4c89'}}></i>
                   </div>
                   <div>
-                    <h5 className="fw-semibold mb-1">Email</h5>
-                    <p className="mb-0 opacity-75">hola@canva.com</p>
+                    <h5 className="fw-semibold mb-1">Top Talent</h5>
+                    <p className="mb-0 text-muted">Access to world-class designers</p>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center mb-3">
+                  <div className="bg-light rounded p-3 me-3 d-flex align-items-center justify-content-center" style={{width: '48px', height: '48px'}}>
+                    <i className="bi bi-lightning-fill" style={{fontSize: '1.5rem', color: '#ea4c89'}}></i>
+                  </div>
+                  <div>
+                    <h5 className="fw-semibold mb-1">Fast Turnaround</h5>
+                    <p className="mb-0 text-muted">Quick project delivery</p>
                   </div>
                 </div>
                 <div className="d-flex align-items-center">
-                  <div className="bg-white bg-opacity-20 rounded p-3 me-3">
-                    <MessageCircle size={24} />
+                  <div className="bg-light rounded p-3 me-3 d-flex align-items-center justify-content-center" style={{width: '48px', height: '48px'}}>
+                    <i className="bi bi-shield-check-fill" style={{fontSize: '1.5rem', color: '#ea4c89'}}></i>
                   </div>
                   <div>
-                    <h5 className="fw-semibold mb-1">Chat en vivo</h5>
-                    <p className="mb-0 opacity-75">Disponible 24/7</p>
+                    <h5 className="fw-semibold mb-1">Quality Guaranteed</h5>
+                    <p className="mb-0 text-muted">Professional results every time</p>
                   </div>
                 </div>
               </div>
-              
-              <div className="mt-5">
-                <h5 className="fw-semibold mb-3">¿Por qué elegirnos?</h5>
-                <ul className="list-unstyled opacity-75">
-                  <li className="mb-2">• Miles de plantillas profesionales</li>
-                  <li className="mb-2">• Herramientas de diseño intuitivas</li>
-                  <li className="mb-2">• Soporte al cliente excepcional</li>
-                  <li className="mb-2">• Actualizaciones constantes</li>
-                </ul>
+
+              <div className="row g-3">
+                <div className="col-sm-6">
+                  <div className="text-center p-3 bg-white rounded shadow-sm">
+                    <h4 className="fw-bold mb-1" style={{color: '#ea4c89'}}>50K+</h4>
+                    <small className="text-muted">Active Designers</small>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="text-center p-3 bg-white rounded shadow-sm">
+                    <h4 className="fw-bold mb-1" style={{color: '#ea4c89'}}>1M+</h4>
+                    <small className="text-muted">Projects Completed</small>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Contact Form */}
+          
           <div className="col-lg-6">
-            <div className="bg-white rounded-4 shadow-sm p-5 h-100">
-              <form onSubmit={handleSubmit}>
-                {/* Name Field */}
-                <div className="mb-4">
-                  <label htmlFor="name" className="form-label fw-medium">
-                    Nombre completo *
-                  </label>
-                  <div className="input-group">
-                    <span className="input-group-text bg-light border-end-0">
-                      <User className="text-muted" size={20} />
-                    </span>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className={`form-control border-start-0 ${
-                        errors.name ? 'is-invalid' : ''
-                      }`}
-                      placeholder="Tu nombre completo"
-                    />
-                  </div>
-                  {errors.name && (
-                    <div className="invalid-feedback d-block">
-                      {errors.name}
+            <div className="card border-0 shadow-lg">
+              <div className="card-body p-4">
+                <h3 className="card-title fw-bold mb-4">Start your project</h3>
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-3">
+                    <label htmlFor="name" className="form-label fw-medium">
+                      Full Name *
+                    </label>
+                    <div className="input-group">
+                      <span className="input-group-text bg-light border-end-0">
+                        <i className="bi bi-person-fill text-muted"></i>
+                      </span>
+                      <input
+                        type="text"
+                        className="form-control border-start-0"
+                        id="name"
+                        name="name"
+                        placeholder="Your full name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                      />
                     </div>
-                  )}
-                </div>
-
-                {/* Email Field */}
-                <div className="mb-4">
-                  <label htmlFor="email" className="form-label fw-medium">
-                    Correo electrónico *
-                  </label>
-                  <div className="input-group">
-                    <span className="input-group-text bg-light border-end-0">
-                      <Mail className="text-muted" size={20} />
-                    </span>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className={`form-control border-start-0 ${
-                        errors.email ? 'is-invalid' : ''
-                      }`}
-                      placeholder="tu@email.com"
-                    />
                   </div>
-                  {errors.email && (
-                    <div className="invalid-feedback d-block">
-                      {errors.email}
-                    </div>
-                  )}
-                </div>
 
-                {/* Message Field */}
-                <div className="mb-4">
-                  <label htmlFor="message" className="form-label fw-medium">
-                    Mensaje *
-                  </label>
-                  <div className="input-group">
-                    <span className="input-group-text bg-light border-end-0 align-items-start pt-3">
-                      <MessageCircle className="text-muted" size={20} />
-                    </span>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      rows={5}
-                      className={`form-control border-start-0 resize-none ${
-                        errors.message ? 'is-invalid' : ''
-                      }`}
-                      placeholder="Cuéntanos cómo podemos ayudarte..."
-                      style={{ resize: 'none' }}
-                    />
+                  <div className="mb-3">
+                    <label htmlFor="email" className="form-label fw-medium">
+                      Email Address *
+                    </label>
+                    <div className="input-group">
+                      <span className="input-group-text bg-light border-end-0">
+                        <i className="bi bi-envelope-fill text-muted"></i>
+                      </span>
+                      <input
+                        type="email"
+                        className="form-control border-start-0"
+                        id="email"
+                        name="email"
+                        placeholder="your@email.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
                   </div>
-                  {errors.message && (
-                    <div className="invalid-feedback d-block">
-                      {errors.message}
-                    </div>
-                  )}
-                </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`btn w-100 d-flex align-items-center justify-content-center gap-2 ${
-                    isSubmitting
-                      ? 'btn-secondary'
-                      : 'btn-canva-primary'
-                  }`}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="spinner-border spinner-border-sm text-light" role="status">
-                        <span className="visually-hidden">Loading...</span>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="mb-3">
+                        <label htmlFor="projectType" className="form-label fw-medium">
+                          Project Type
+                        </label>
+                        <select
+                          className="form-select"
+                          id="projectType"
+                          name="projectType"
+                          value={formData.projectType}
+                          onChange={handleChange}
+                        >
+                          <option value="">Select type</option>
+                          <option value="logo">Logo Design</option>
+                          <option value="web">Web Design</option>
+                          <option value="mobile">Mobile App</option>
+                          <option value="branding">Branding</option>
+                          <option value="illustration">Illustration</option>
+                          <option value="other">Other</option>
+                        </select>
                       </div>
-                      Enviando...
-                    </>
-                  ) : (
-                    <>
-                      <Send size={20} />
-                      Enviar Mensaje
-                    </>
-                  )}
-                </button>
-              </form>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="mb-3">
+                        <label htmlFor="budget" className="form-label fw-medium">
+                          Budget Range
+                        </label>
+                        <select
+                          className="form-select"
+                          id="budget"
+                          name="budget"
+                          value={formData.budget}
+                          onChange={handleChange}
+                        >
+                          <option value="">Select budget</option>
+                          <option value="500-1000">$500 - $1,000</option>
+                          <option value="1000-5000">$1,000 - $5,000</option>
+                          <option value="5000-10000">$5,000 - $10,000</option>
+                          <option value="10000+">$10,000+</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <label htmlFor="message" className="form-label fw-medium">
+                      Project Description *
+                    </label>
+                    <div className="input-group">
+                      <span className="input-group-text bg-light border-end-0 align-items-start pt-3">
+                        <i className="bi bi-chat-text-fill text-muted"></i>
+                      </span>
+                      <textarea
+                        className="form-control border-start-0"
+                        id="message"
+                        name="message"
+                        rows="4"
+                        placeholder="Tell us about your project, goals, and timeline..."
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className={`btn btn-lg w-100 rounded-pill ${
+                      isFormValid ? '' : 'btn-secondary'
+                    }`}
+                    style={isFormValid ? {backgroundColor: '#ea4c89', color: 'white'} : {}}
+                    disabled={!isFormValid || isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                        Sending Request...
+                      </>
+                    ) : (
+                      <>
+                        <i className="bi bi-send-fill me-2"></i>
+                        Get Started
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
