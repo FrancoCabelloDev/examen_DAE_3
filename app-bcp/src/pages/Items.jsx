@@ -1,7 +1,7 @@
 // pages/Items.jsx
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { productosFinancieros } from '../data/items';
+import { productosFinancieros } from '../data/movies';
 import { useDebounce } from '../hooks/useDebounce';
 import ItemSearch from '../components/ItemSearch';
 import ItemCard from '../components/ItemCard';

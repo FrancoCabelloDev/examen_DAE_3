@@ -4,22 +4,31 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/header.jsx';
+import Footer from './components/footer.jsx';
 import Home from './pages/Home';
-import Items from './pages/Items';
-import Contact from './pages/Contact';
+import Movies from './pages/Movies';
+import Series from './pages/Series';
+import MyList from './pages/MyList';
+import MovieDetail from './pages/MovieDetail';
+import Search from './pages/Search';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <Router>
-      <div className="d-flex flex-column min-vh-100">
+      <div className="d-flex flex-column min-vh-100 bg-dark text-white">
         <Header />
         <main className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/items" element={<Items />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/series" element={<Series />} />
+            <Route path="/my-list" element={<MyList />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/movie/:id" element={<MovieDetail />} />
+            <Route path="/series/:id" element={<MovieDetail />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
@@ -33,7 +42,7 @@ function App() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="light"
+          theme="dark"
         />
       </div>
     </Router>

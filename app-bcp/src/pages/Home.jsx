@@ -1,15 +1,13 @@
 // pages/Home.jsx
 import React from 'react';
 import HeroBanner from '../components/HeroBanner';
-import CardList from '../components/CardList';
+import MovieSlider from '../components/MovieSlider';
 
-const Home = () => {
-  return (
-    <div>
-      <HeroBanner />
-      <CardList />
-    </div>
-  );
-};
+const Home = () => (
+  <div>
+    <HeroBanner />
+    <MovieSlider />
+  </div>
+);
 
 export default Home;
